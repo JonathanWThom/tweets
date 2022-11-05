@@ -1,5 +1,7 @@
 .PHONY: go everybody post refresh repost timeline
 
+action: everybody timeline500
+
 everybody:
 	./follow-everybody.bash
 
@@ -17,3 +19,6 @@ repost:
 
 timeline:
 	git log --graph --all --decorate --oneline
+
+timeline500:
+	git log -500 --graph --all --decorate --oneline
