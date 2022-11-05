@@ -1,0 +1,14 @@
+name: Refresh and view timeline
+
+on: workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      
+    - name: Follow all users and view last 500 from timeline
+      run: make action
