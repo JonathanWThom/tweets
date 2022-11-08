@@ -1,24 +1,25 @@
-.PHONY: go everybody post refresh repost timeline
-
-action: everybody timeline500
+.PHONY: everybody go post refresh repost timeline-graph timeline timeline-short
 
 everybody:
-	./follow-everybody.bash
+	GIT_TERMINAL_PROMPT=0 ./follow-everybody.bash
 
-go: everybody timeline
+go: everybody refresh timeline
 
 post:
 	git commit -m $(p) --allow-empty
 	git push
 
 refresh:
-	git fetch --all
+	GIT_TERMINAL_PROMPT=0 git fetch --all
 
 repost:
-	git cherry-pick $(p)
+	git cherry-pick -x $(p)
 
-timeline:
+timeline-graph:
 	git log --graph --all --decorate --oneline
 
-timeline500:
-	git log -500 --graph --all --decorate --oneline
+timeline:
+	git rev-list --all --remotes --pretty | less
+
+timeline-short:
+	git log --format="format:%Cred%cd %Cblue%h %Cgreen%cn%Creset: %s" --all --date=iso-local
